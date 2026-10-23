@@ -1,0 +1,24 @@
+{
+  "name": "miku-md2formats-skills",
+  "version": "0.3.1",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "skillRuntimeArtifacts": [
+    "runtime/miku-md2html-0.3.2.mjs",
+    "runtime/miku-md2docx-1.1.0.mjs",
+    "runtime/miku-md2docx-java-1.1.0.jar",
+    "runtime/miku-md2xlsx-0.10.0.mjs",
+    "runtime/miku-md2xlsx-java-0.10.0.jar",
+    "runtime/miku-md2pptx-0.7.0.mjs",
+    "runtime/miku-md2pptx-java-0.7.0.jar"
+  ],
+  "scripts": {
+    "test": "node --test --test-concurrency=1 tests/*.test.mjs",
+    "build": "npm test && npm run build:bundle:zip",
+    "build:bundle": "node scripts/build-skill-bundle.mjs",
+    "build:bundle:zip": "node scripts/build-skill-bundle-zip.mjs"
+  }
+}
