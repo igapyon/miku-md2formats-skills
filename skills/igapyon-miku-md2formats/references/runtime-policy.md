@@ -4,15 +4,15 @@
 
 - Respect an explicit backend request. Use Node.js for Node.js, JavaScript, or
   `.mjs` requests; use Java for Java, jar, or Java-only requests.
-- Naming a `miku-md2docx-java`, `miku-md2xlsx-java`, or
+- Naming a `miku-md2html-java`, `miku-md2docx-java`, `miku-md2xlsx-java`, or
   `miku-md2pptx-java` CLI is an explicit Java request.
 - If the user does not choose a backend, prefer Node.js when Node.js 22 or newer
-  is available. If it is unavailable, Java 8 or newer may be used for DOCX,
-  XLSX, or PPTX when the matching jar is present and Java is available.
+  is available. If it is unavailable, Java 8 or newer may be used for any
+  output format when the matching jar is present and Java is available.
 - Do not silently switch backends when the user explicitly requests a
   Node.js-only or Java-only path.
-- HTML has no Java runtime. If Java is explicitly requested for HTML, hand off
-  instead of selecting Node.js without the user's consent.
+- HTML has both Node.js and Java runtimes. If Java is explicitly requested,
+  use the Java jar instead of selecting Node.js.
 - Node.js and Java converters are separate upstream implementations. Use the
   selected CLI's `--help` for its exact options; do not assume all optional
   flags or generated package details are identical.
@@ -34,7 +34,7 @@ conversion.
 
 | Output | Node.js runtime | Java runtime |
 | --- | --- | --- |
-| HTML | `miku-md2html-0.3.2.mjs` | unavailable |
+| HTML | `miku-md2html-0.5.0.mjs` | `miku-md2html-java-0.5.0.jar` |
 | DOCX | `miku-md2docx-1.1.0.mjs` | `miku-md2docx-java-1.1.0.jar` |
 | XLSX | `miku-md2xlsx-0.10.0.mjs` | `miku-md2xlsx-java-0.10.0.jar` |
 | PPTX | `miku-md2pptx-0.7.0.mjs` | `miku-md2pptx-java-0.7.0.jar` |
@@ -63,6 +63,10 @@ current pins and SHA-256 values are recorded in [upstreams.md](upstreams.md).
 ## Diagnostics and reporting
 
 - Preserve each CLI's stdout, stderr, exit status, warnings, and output path.
+- For DOCX, pass `--summary` and inspect its human-readable stdout for material
+  diagnostics such as missing images and unresolved links. Do not treat this
+  summary as a stable machine-readable format or write it to a file unless the
+  user requests that file.
 - XLSX reports normal success silently; confirm the exit status and output
   file instead of interpreting empty stdout as failure.
 - Do not hide warnings or infer success from partial output after a non-zero

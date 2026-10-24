@@ -57,6 +57,17 @@ test("release zip contains installable files and rejects missing required conten
   assert.notEqual(missingReferenceSmoke.status, 0,
     "the release checker must reject an archive missing a required skill reference");
   assert.match(missingReferenceSmoke.stderr, /missing zip entry: skills\/igapyon-miku-md2formats\/references\/tool-map\.md/);
+
+  const missingAgentMetadataZip = path.join(scratch, "release-assets-missing-agent-metadata.zip");
+  fs.copyFileSync(zipPath, missingAgentMetadataZip);
+  execFileSync("zip", ["-d", missingAgentMetadataZip,
+    "skills/" + skillName + "/agents/openai.yaml"], { cwd: ROOT, encoding: "utf8" });
+  const missingAgentMetadataSmoke = spawnSync(process.execPath,
+    [verifierPath, missingAgentMetadataZip], { cwd: ROOT, encoding: "utf8" });
+  assert.notEqual(missingAgentMetadataSmoke.status, 0,
+    "the release checker must reject an archive missing required agent metadata");
+  assert.match(missingAgentMetadataSmoke.stderr,
+    /missing zip entry: skills\/igapyon-miku-md2formats\/agents\/openai\.yaml/);
 });
 
 function inspectReleaseZip(targetZipPath) {
@@ -66,6 +77,7 @@ function inspectReleaseZip(targetZipPath) {
   }).trim().split(/\n/).filter(Boolean);
 
   assertIncludes(entries, "skills/" + skillName + "/SKILL.md");
+  assertIncludes(entries, "skills/" + skillName + "/agents/openai.yaml");
   assertIncludes(entries, "skills/" + skillName + "/references/INDEX.md");
   assertIncludes(entries, "skills/" + skillName + "/references/tool-map.md");
   assertIncludes(entries, "skills/" + skillName + "/references/runtime-policy.md");
