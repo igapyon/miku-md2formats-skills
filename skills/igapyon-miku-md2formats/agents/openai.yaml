@@ -1,5 +1,5 @@
-# Optional OpenAI agent metadata for igapyon-miku-md2formats.
-# Remove this file if the target skill does not provide agent metadata.
+# OpenAI agent metadata for igapyon-miku-md2formats.
+# Require explicit invocation for this conversion workflow.
 interface:
   display_name: "miku-md2formats"
   short_description: "Markdown to HTML, DOCX, XLSX, or PPTX with Node.js or Java"

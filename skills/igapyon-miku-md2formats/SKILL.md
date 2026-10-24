@@ -1,6 +1,6 @@
 ---
 name: igapyon-miku-md2formats
-description: Use only when the user explicitly names `igapyon-miku-md2formats`, `miku-md2formats`, `miku-md2formats-skills`, or a supported `miku-md2html`, `miku-md2docx`, `miku-md2xlsx`, `miku-md2pptx`, `miku-md2docx-java`, `miku-md2xlsx-java`, or `miku-md2pptx-java` tool for Markdown conversion.
+description: Use only when the user explicitly names `igapyon-miku-md2formats`, `miku-md2formats`, `miku-md2formats-skills`, or a supported `miku-md2html`, `miku-md2html-java`, `miku-md2docx`, `miku-md2xlsx`, `miku-md2pptx`, `miku-md2docx-java`, `miku-md2xlsx-java`, or `miku-md2pptx-java` tool for Markdown conversion.
 ---
 
 # igapyon-miku-md2formats
@@ -29,8 +29,9 @@ network service.
 
 Activate only when the user explicitly names `igapyon-miku-md2formats`,
 `miku-md2formats`, `miku-md2formats-skills`, or one of the supported tools
-`miku-md2html`, `miku-md2docx`, `miku-md2xlsx`, `miku-md2pptx`,
-`miku-md2docx-java`, `miku-md2xlsx-java`, or `miku-md2pptx-java`, or when
+`miku-md2html`, `miku-md2html-java`, `miku-md2docx`, `miku-md2xlsx`,
+`miku-md2pptx`, `miku-md2docx-java`, `miku-md2xlsx-java`, or
+`miku-md2pptx-java`, or when
 continuing a workflow already invoked by one of those names. Do not activate
 for generic Markdown conversion or generic Office editing without an explicit
 miku product name.
@@ -61,26 +62,29 @@ path and do not run the same conversion twice.
 4. Select the backend under [references/runtime-policy.md](references/runtime-policy.md).
    Resolve the runtime path from the directory containing this `SKILL.md`, and
    run it with the user's project as the working directory. Confirm Node.js 22
-   or newer for a Node.js CLI, or Java 8 or newer for a Java CLI. HTML is
-   available only through Node.js.
+   or newer for a Node.js CLI, or Java 8 or newer for a Java CLI.
 5. Run only the selected converter with the input path and primary `--out`
-   option. Do not add summaries, reports, manifests, debug files, or other
-   secondary artifacts unless the user asks for them. Use format or template
-   options only when needed for the requested output.
+   option. For DOCX, also pass `--summary` to receive conversion diagnostics
+   on stdout. Do not pass `--summary-out` or create other secondary files
+   unless the user asks for them. Use format or template options only when
+   needed for the requested output.
 6. Preserve stdout, stderr, exit status, diagnostics, and the actual output
    path. Report success only when the command succeeds and the output exists.
 
 If the user requests several output formats, run one converter per requested
 format and check each output independently. Keep the Markdown input unchanged.
 
-Use only the primary requested output during normal conversion. Optional
+Create only the primary requested output during normal conversion. Optional
 summary or report files remain opt-in even when an upstream CLI supports them.
+The DOCX `--summary` option writes diagnostics to stdout and does not create an
+additional file.
 
 ## Product Limits
 
-- HTML output is self-contained and works offline. Local supported images can
-  be embedded; remote images are not downloaded. Use `--asset-root` only when
-  the user needs local images from an additional directory.
+- HTML embeds its CSS, viewer JavaScript, and SVG. Local raster images are
+  referenced by default; use `--image-mode embed` when the user needs them
+  embedded in the HTML. Remote images are rejected. Use `--asset-root` when
+  local images outside the Markdown file's directory are needed.
 - DOCX, XLSX, and PPTX generation preserves practical document structure; it
   does not promise pixel-perfect layout reconstruction.
 - Java XLSX `0.10.0` can remove literal underscores from plain text. Use the

@@ -11,6 +11,7 @@ const repoName = "miku-md2formats-skills";
 const skillName = "igapyon-miku-md2formats";
 const requiredSkillFiles = [
   "SKILL.md",
+  "agents/openai.yaml",
   "references/INDEX.md",
   "references/tool-map.md",
   "references/runtime-policy.md",

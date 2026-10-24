@@ -9,8 +9,8 @@ are based there. Use Node.js by default and Java when requested.
 
 | Requested output | Node.js CLI (default) | Java CLI | Notes |
 | --- | --- | --- | --- |
-| `.html` | `node "/absolute/path/to/igapyon-miku-md2formats/runtime/miku-md2html-0.3.2.mjs" input.md --out output.html` | — | Self-contained/offline HTML; local supported images can be embedded. Remote images are rejected. Java is not available for HTML. |
-| `.docx` | `node "/absolute/path/to/igapyon-miku-md2formats/runtime/miku-md2docx-1.1.0.mjs" input.md --out output.docx` | `java -jar "/absolute/path/to/igapyon-miku-md2formats/runtime/miku-md2docx-java-1.1.0.jar" input.md --out output.docx` | Editable Word structure; local images resolve relative to the Markdown file. Check the selected CLI's `--help` for backend-specific options. |
+| `.html` | `node "/absolute/path/to/igapyon-miku-md2formats/runtime/miku-md2html-0.5.0.mjs" input.md --out output.html` | `java -jar "/absolute/path/to/igapyon-miku-md2formats/runtime/miku-md2html-java-0.5.0.jar" input.md --out output.html` | Local raster images are referenced by default; add `--image-mode embed` to embed them. Remote images are rejected. Check the selected CLI's `--help` for backend-specific details. |
+| `.docx` | `node "/absolute/path/to/igapyon-miku-md2formats/runtime/miku-md2docx-1.1.0.mjs" input.md --out output.docx --summary` | `java -jar "/absolute/path/to/igapyon-miku-md2formats/runtime/miku-md2docx-java-1.1.0.jar" input.md --out output.docx --summary` | Editable Word structure; local images resolve relative to the Markdown file. `--summary` reports conversion diagnostics, including missing images. Check the selected CLI's `--help` for backend-specific options. |
 | `.xlsx` | `node "/absolute/path/to/igapyon-miku-md2formats/runtime/miku-md2xlsx-0.10.0.mjs" input.md --out output.xlsx` | `java -jar "/absolute/path/to/igapyon-miku-md2formats/runtime/miku-md2xlsx-java-0.10.0.jar" input.md --out output.xlsx` | Practical workbook structure; successful conversion is silent. Values are written as text; formulas/charts/drawings are not generated. Java `0.10.0` may remove literal underscores; use Node.js when those must be preserved. |
 | `.pptx` | `node "/absolute/path/to/igapyon-miku-md2formats/runtime/miku-md2pptx-0.7.0.mjs" input.md --out output.pptx` | `java -jar "/absolute/path/to/igapyon-miku-md2formats/runtime/miku-md2pptx-java-0.7.0.jar" input.md --out output.pptx` | Editable slide structure; headings level 1 and 2 start slides. Local supported images may be embedded. |
 
@@ -27,8 +27,8 @@ are based there. Use Node.js by default and Java when requested.
    compatible Java runtime is available.
 5. Respect explicit backend requests. Do not silently switch from a requested
    Node.js-only or Java-only path to another backend.
-6. HTML has no bundled Java CLI. If Java is explicitly requested for HTML,
-   hand off instead of silently using Node.js.
+6. Use the bundled HTML Java CLI when Java is explicitly requested; do not
+   silently substitute the Node.js backend.
 7. If the selected runtime or its prerequisite is unavailable, hand off the
    selected upstream and the intended input and output paths.
 8. Do not use AI, LLM APIs, OCR, or network services while routing or
