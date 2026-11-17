@@ -95,6 +95,25 @@ were reviewed: local raster images are referenced by default, and
 `skills/igapyon-miku-md2formats/references/INDEX.md` to a non-empty HTML file
 without diagnostics.
 
+## `miku-md2html` Node.js and Java v0.6.0 intake (2026-11-18)
+
+Both v0.6.0 Release assets were downloaded and matched the SHA-256 digests
+published in GitHub Release metadata:
+
+- Node.js CLI `miku-md2html-0.6.0.mjs`, source commit
+  `4a0918713f8b94fffe8d447e809800a2e096cb84`, SHA-256
+  `d393ef6b1e1142a1429cab006e6b01bae9e32d9d8b4b03249ac920227b9f9048`.
+- Java executable `miku-md2html-java-0.6.0.jar`, source commit
+  `43be197bd01d585ff669f8c63b55a581d179c36a`, SHA-256
+  `f651212c62caaddf650a16f7773248922d96180505ed1de0c14adc1e5c3caf13`.
+
+This release places the table of contents after an opening H1 when the
+generated article begins with one, and consolidates repeated structural blank
+lines in HTML output. The Java release keeps Node v0.4.0 as its compatibility
+baseline and selectively adopts these layout changes; matching version
+numbers do not claim full feature parity. The upstream Node test suite passed
+162 tests across 11 files, and the Java Maven suite passed 63 tests.
+
 ## Verification
 
 The upstream CLIs' `--help` output was inspected while writing the per-format
@@ -117,3 +136,11 @@ the review fixes, `npm run build` passed on 2026-10-23: both repository tests
 passed, and the staged ZIP passed required-file and seven-runtime version
 checks. After the v0.5.0 intake and package version increment,
 `npm run build` passed with all eight runtime version checks and the 0.3.4 ZIP.
+
+After importing the v0.6.0 HTML artifacts, `npm run build` passed both
+repository tests, validated all eight bundled CLI versions, and regenerated
+`bundle/igapyon-miku-md2formats-skills-0.3.7.zip`.
+
+The skill package version was then set to `0.6.0`, independently of the
+bundled CLI versions. `npm run build` passed and generated
+`bundle/igapyon-miku-md2formats-skills-0.6.0.zip`.

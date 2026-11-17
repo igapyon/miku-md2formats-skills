@@ -2,13 +2,15 @@
 
 ## Current state
 
-- Repository: `miku-md2formats-skills`, package version `0.3.6`.
+- Repository: `miku-md2formats-skills`, package version `0.6.0`.
 - Installed skill: `igapyon-miku-md2formats`.
 - Four output formats are covered by eight pinned self-contained runtimes:
   Node.js and Java for HTML, DOCX, XLSX, and PPTX.
-- HTML uses `miku-md2html` and `miku-md2html-java` `v0.5.0`. The Java release
-  is based on Node v0.4.0 and does not claim full feature parity with Node
-  v0.5.0. Both backends reference local raster images by default; use
+- HTML uses `miku-md2html` and `miku-md2html-java` `v0.6.0`. Both place the
+  table of contents after an article's opening H1 when present, and collapse
+  repeated structural blank lines. The Java release uses Node v0.4.0 as its
+  compatibility baseline and does not claim full feature parity with Node
+  v0.6.0. Both backends reference local raster images by default; use
   `--image-mode embed` to embed them.
 - Runtime provenance, source commits, release links, and SHA-256 values are in
   `skills/igapyon-miku-md2formats/references/upstreams.md`.
@@ -49,7 +51,13 @@
 - At package version `0.3.6`, `npm run build:bundle:zip` regenerated
   `bundle/igapyon-miku-md2formats-skills-0.3.6.zip` from the current working
   tree.
-- Local version is `0.3.6`; the expected matching tag is `v0.3.6`. Ensure the
+- At package version `0.3.7`, after importing HTML v0.6.0, `npm run build`
+  passed both repository tests, checked all eight runtime versions, and
+  generated `bundle/igapyon-miku-md2formats-skills-0.3.7.zip`.
+- Package version `0.6.0` was selected independently of the bundled CLI
+  versions. `npm run build` passed after the bump and generated
+  `bundle/igapyon-miku-md2formats-skills-0.6.0.zip`.
+- Local version is `0.6.0`; the expected matching tag is `v0.6.0`. Ensure the
   tag points to the merged release commit containing this bundle. GitHub
   Release publication remains a human UI step.
 

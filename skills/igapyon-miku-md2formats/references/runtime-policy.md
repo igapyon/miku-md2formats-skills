@@ -13,6 +13,9 @@
   Node.js-only or Java-only path.
 - HTML has both Node.js and Java runtimes. If Java is explicitly requested,
   use the Java jar instead of selecting Node.js.
+- Both HTML v0.6.0 runtimes place the table of contents after an opening H1
+  when the article begins with one; otherwise, the table of contents precedes
+  the article. Repeated structural blank lines are collapsed.
 - Node.js and Java converters are separate upstream implementations. Use the
   selected CLI's `--help` for its exact options; do not assume all optional
   flags or generated package details are identical.
@@ -34,7 +37,7 @@ conversion.
 
 | Output | Node.js runtime | Java runtime |
 | --- | --- | --- |
-| HTML | `miku-md2html-0.5.0.mjs` | `miku-md2html-java-0.5.0.jar` |
+| HTML | `miku-md2html-0.6.0.mjs` | `miku-md2html-java-0.6.0.jar` |
 | DOCX | `miku-md2docx-1.1.0.mjs` | `miku-md2docx-java-1.1.0.jar` |
 | XLSX | `miku-md2xlsx-0.10.0.mjs` | `miku-md2xlsx-java-0.10.0.jar` |
 | PPTX | `miku-md2pptx-0.7.0.mjs` | `miku-md2pptx-java-0.7.0.jar` |

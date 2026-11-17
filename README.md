@@ -13,7 +13,7 @@ DOCX, XLSX, and PPTX are handled by their separate upstream CLI repositories.
 
 | Markdown output | Node.js CLI | Java CLI |
 | --- | --- | --- |
-| HTML | `miku-md2html` 0.5.0 | `miku-md2html-java` 0.5.0 |
+| HTML | `miku-md2html` 0.6.0 | `miku-md2html-java` 0.6.0 |
 | Word DOCX | `miku-md2docx` 1.1.0 | `miku-md2docx-java` 1.1.0 |
 | Excel XLSX | `miku-md2xlsx` 0.10.0 | `miku-md2xlsx-java` 0.10.0 |
 | PowerPoint PPTX | `miku-md2pptx` 0.7.0 | `miku-md2pptx-java` 0.7.0 |
@@ -21,6 +21,10 @@ DOCX, XLSX, and PPTX are handled by their separate upstream CLI repositories.
 Java companions are available for all four output formats. For HTML, both
 backends reference local raster images by default; use `--image-mode embed` to
 include them in the HTML file. Remote images are rejected.
+
+When the article begins with an H1, the HTML table of contents follows that
+heading; otherwise, it appears before the article. Repeated structural blank
+lines in generated HTML are collapsed without changing text or code content.
 
 The installed skill is `igapyon-miku-md2formats`. It activates only when
 explicitly named as `igapyon-miku-md2formats`, `miku-md2formats`,
@@ -61,7 +65,7 @@ npm run build
 ```
 
 `npm run build` runs the tests, checks the bundled CLI versions, and creates
-`bundle/igapyon-miku-md2formats-skills-0.3.6.zip`. GitHub Actions repeats the
+`bundle/igapyon-miku-md2formats-skills-0.6.0.zip`. GitHub Actions repeats the
 build on Node.js 22 and 24 with Java 8 available. The release workflow attaches
 the versioned ZIP to a published GitHub Release.
 
